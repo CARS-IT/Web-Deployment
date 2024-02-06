@@ -22,3 +22,9 @@ Desktop.ini
 
 # Secret files
 .env
+
+# WordPress files
+data/
+
+# MySQL files
+mysql/
