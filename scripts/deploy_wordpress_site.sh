@@ -16,6 +16,9 @@ SEPERATOR_COLOR="\033[0;33m"
 SUCCESS_COLOR="\033[0;32m"
 NO_COLOR="\033[0m"
 
+# Current timestamp
+timestamp=$(date +"%Y-%m-%d %T")
+
 echo -e "\n${SEPERATOR_COLOR}Website Configuration${NO_COLOR}\n"
 # -----------------------------------------------------------------------------
 # Section: Website Address and Port
@@ -136,6 +139,7 @@ done
 # -----------------------------------------------------------------------------
 # Define the directory path
 dir_path="$(dirname "$0")/../web-apps/wordpress/$site_address"
+dir_path=$(realpath "$dir_path")
 
 # Check if the directory already exists
 if [ -d "$dir_path" ]; then
@@ -278,3 +282,27 @@ echo -ne "
 3. Add the site to the DNS server
 "
 echo -e "\n${SUCCESS_COLOR}Deployment Complete${NO_COLOR}"
+
+# Create a repot file
+report_file="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && cd .. && pwd )/reports/$site_address"
+
+# Create the report file
+cat > "$report_file" <<EOF
+# -----------------------------------------------------------------------------
+# Project: Web-Deployment - $site_address
+# File: $site_address
+# -----------------------------------------------------------------------------
+# Purpose:
+# This file is a general report for the deployment of the $site_address site.
+# 
+# Copyright (C) 2024 GSECARS, The University of Chicago, USA
+# This project is distributed under the terms of the MIT license.
+# -----------------------------------------------------------------------------
+
+Deployment Date: $timestamp
+Deployment User: $(whoami)
+Deployment Host: $(hostname)
+Deployment Directory: $dir_path
+Deployment Port: $port_number
+HTTPD Configuration File: $site_conf
+EOF
