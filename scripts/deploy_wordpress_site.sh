@@ -50,4 +50,4 @@ deploy_website
 
 # Create reports and notices
 deployment_user_notice
-create_simple_deployment_report
+create_deployment_report
