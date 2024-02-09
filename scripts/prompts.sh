@@ -148,3 +148,36 @@ function prompt_for_db_root_password {
         break
     done
 }
+
+# -----------------------------------------------------------------------------
+# Website Migration information
+# -----------------------------------------------------------------------------
+function prompt_for_wp_content {
+    # Get the wp-content.tar.gz file location from the user
+    while true; do
+        # Prompt the user for the wp-content.tar.gz file location
+        read -p "Enter the full path of the wp-content.tar.gz file: " wp_content_tar_gz
+
+        # Cancel the operation if the file does not exist
+        if [ ! -f $wp_content_tar_gz ]; then
+            echo -e "${NOTICE_COLOR}The file does not exist. Please try again.${NO_COLOR}"
+        else
+            break
+        fi
+    done
+}
+
+function prompt_for_db_dump {
+    # Get the db-dump.sql file location from the user
+    while true; do
+        # Prompt the user for the db-dump.sql file location
+        read -p "Enter the full path of the db-dump.sql file: " db_dump_sql
+
+        # Cancel the operation if the file does not exist
+        if [ ! -f $db_dump_sql ]; then
+            echo -e "${NOTICE_COLOR}The file does not exist. Please try again.${NO_COLOR}"
+        else
+            break
+        fi
+    done
+}

@@ -56,7 +56,8 @@ echo -e "${NOTICE_COLOR}-----------------${NO_COLOR}"
 # Create the menu
 while true; do
     echo "1. Add new WordPress site"
-    echo "2. Exit"
+    echo "2. Migrate an existing WordPress site"
+    echo "3. Exit"
 
     read -rp "Enter your choice: " choice
 
@@ -66,6 +67,10 @@ while true; do
             exit 0
             ;;
         2)
+            bash "$SCRIPTS_DIR/migrate_wordpress_site.sh"
+            exit 0
+            ;;
+        3)
             echo "Exiting the script..."
             break
             ;;

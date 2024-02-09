@@ -33,6 +33,18 @@ function create_website_directories {
 }
 
 # -----------------------------------------------------------------------------
+# Migration Files
+# -----------------------------------------------------------------------------
+function replace_wp_content {
+    # Remove the old wp-content directory
+    sudo rm -rf "$dir_path/data/wp-content"
+    # Create the new wp-content directory
+    sudo mkdir "$dir_path/data/wp-content"
+    # Utar the wp-content directory into the new directory
+    sudo tar -xvf "$wp_content_tar_gz" -C "$dir_path/data/wp-content"
+}
+
+# -----------------------------------------------------------------------------
 # .env File
 # -----------------------------------------------------------------------------
 function create_env_file {
@@ -134,7 +146,7 @@ EOF
 # -----------------------------------------------------------------------------
 # Report Files
 # -----------------------------------------------------------------------------
-function create_simple_deployment_report {
+function create_deployment_report {
     # Create a repot file
     report_file="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && cd .. && pwd )/reports/$site_address"
 
@@ -156,6 +168,34 @@ function create_simple_deployment_report {
     Deployment Host: $(hostname)
     Deployment Directory: $dir_path
     Deployment Port: $port_number
+    HTTPD Configuration File: $site_conf
+EOF
+}
+
+function create_migration_report {
+    # Create a repot file
+    report_file="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && cd .. && pwd )/reports/$site_address"
+
+    # Create the report file
+    cat > "$report_file" <<EOF
+    # -----------------------------------------------------------------------------
+    # Project: Web-Deployment - $site_address
+    # File: $site_address
+    # -----------------------------------------------------------------------------
+    # Purpose:
+    # This file is a general report for the migration of the $site_address site.
+    # 
+    # Copyright (C) 2024 GSECARS, The University of Chicago, USA
+    # This project is distributed under the terms of the MIT license.
+    # -----------------------------------------------------------------------------
+
+    Migration Date: $timestamp
+    Deployment User: $(whoami)
+    Deployment Host: $(hostname)
+    Deployment Directory: $dir_path
+    Deployment Port: $port_number
+    Migration Dump: $db_dump_sql
+    Migration WP-Content: $wp_content_tar_gz
     HTTPD Configuration File: $site_conf
 EOF
 }
