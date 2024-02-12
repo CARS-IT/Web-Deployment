@@ -7,9 +7,20 @@ This repository contains the necessary files and documentation for deploying som
 ------------
 ## Table of Contents
 
+- [Requirements](#requirements)
 - [WordPress](#wordpress-deploymentmigration)
 - [Contributing](#contributing)
 - [License](#license)
+
+------------
+## Requirements
+
+Docker and docker compose are both required for this project. Docker compose V2 is what needs to be installed and docker version 22 or higher.
+Everyting is run and tested only on CentOS 8/9 Stream.
+
+> [CentOS 8/9 Stream](https://www.centos.org/centos-stream/)  
+[Docker version 22 or higher](https://docs.docker.com/get-docker/)  
+[Docker compose V2](https://docs.docker.com/compose/)
 
 ------------
 ## WordPress Deployment/Migration
