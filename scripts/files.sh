@@ -7,6 +7,7 @@
 # This file is used to create all the necessary directories and files for the
 # web deployment project, during the deployment/migration of a WordPress site.
 #
+# Copyright (C) 2024 CARS, The University of Chicago, USA
 # Copyright (C) 2024 GSECARS, The University of Chicago, USA
 # This project is distributed under the terms of the MIT license.
 # -----------------------------------------------------------------------------
@@ -60,7 +61,8 @@ function create_env_file {
     # -----------------------------------------------------------------------------
     # Purpose:
     # This file is used to configure the environment variables for the WordPress site.
-    # 
+    #
+    # Copyright (C) 2024 CARS, The University of Chicago, USA
     # Copyright (C) 2024 GSECARS, The University of Chicago, USA
     # This project is distributed under the terms of the MIT license.
     # -----------------------------------------------------------------------------
@@ -97,7 +99,8 @@ function create_apache_conf {
     # -----------------------------------------------------------------------------
     # Purpose:
     # This file is used to configure the virtual host for the $site_address site.
-    # 
+    #
+    # Copyright (C) 2024 CARS, The University of Chicago, USA
     # Copyright (C) 2024 GSECARS, The University of Chicago, USA
     # This project is distributed under the terms of the MIT license.
     # -----------------------------------------------------------------------------
@@ -158,7 +161,8 @@ function create_deployment_report {
     # -----------------------------------------------------------------------------
     # Purpose:
     # This file is a general report for the deployment of the $site_address site.
-    # 
+    #
+    # Copyright (C) 2024 CARS, The University of Chicago, USA
     # Copyright (C) 2024 GSECARS, The University of Chicago, USA
     # This project is distributed under the terms of the MIT license.
     # -----------------------------------------------------------------------------
@@ -184,7 +188,8 @@ function create_migration_report {
     # -----------------------------------------------------------------------------
     # Purpose:
     # This file is a general report for the migration of the $site_address site.
-    # 
+    #
+    # Copyright (C) 2024 CARS, The University of Chicago, USA
     # Copyright (C) 2024 GSECARS, The University of Chicago, USA
     # This project is distributed under the terms of the MIT license.
     # -----------------------------------------------------------------------------

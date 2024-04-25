@@ -6,6 +6,7 @@
 # Purpose: 
 # This file is used to define the prompts for the web deployment project.
 #
+# Copyright (C) 2024 CARS, The University of Chicago, USA
 # Copyright (C) 2024 GSECARS, The University of Chicago, USA
 # This project is distributed under the terms of the MIT license.
 # -----------------------------------------------------------------------------
