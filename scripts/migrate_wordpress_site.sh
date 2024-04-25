@@ -55,7 +55,7 @@ deploy_website
 prepare_for_migration
 import_db_to_container
 replace_wp_content
-redoplay_website
+redeploy_website
 
 # Create reports and notices
 migration_user_notice

@@ -45,7 +45,7 @@ function import_db_to_container {
     cat $db_dump_sql | docker exec -i db-$converted_site_address sh -c "/usr/bin/mysql -u root --password=\"$root_password\" $db_name"
 }
 
-function redoplay_website {
+function redeploy_website {
     # Redeploy the WordPress site
     docker compose -f "$dir_path/docker-compose.yaml" up -d --force-recreate
 }
