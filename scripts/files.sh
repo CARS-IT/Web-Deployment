@@ -55,33 +55,33 @@ function create_env_file {
     # Create the .env file
     echo -e "${NOTICE_COLOR}Creating${NO_COLOR} $env_file\n"
     cat > "$env_file" <<EOF
-    # -----------------------------------------------------------------------------
-    # Project: Web-Deployment - $site_address
-    # File: .env
-    # -----------------------------------------------------------------------------
-    # Purpose:
-    # This file is used to configure the environment variables for the WordPress site.
-    #
-    # Copyright (C) 2024 CARS, The University of Chicago, USA
-    # Copyright (C) 2024 GSECARS, The University of Chicago, USA
-    # This project is distributed under the terms of the MIT license.
-    # -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Project: Web-Deployment - $site_address
+# File: .env
+# -----------------------------------------------------------------------------
+# Purpose:
+# This file is used to configure the environment variables for the WordPress site.
+#
+# Copyright (C) 2024 CARS, The University of Chicago, USA
+# Copyright (C) 2024 GSECARS, The University of Chicago, USA
+# This project is distributed under the terms of the MIT license.
+# -----------------------------------------------------------------------------
 
 
-    # Database Configuration
-    MYSQL_DATABASE=$db_name
-    MYSQL_USER=$db_user
-    MYSQL_PASSWORD=$db_password
-    MYSQL_ROOT_PASSWORD=$root_password
-    MYSQL_VOLUME=$(realpath "$dir_path/mysql")
+# Database Configuration
+MYSQL_DATABASE=$db_name
+MYSQL_USER=$db_user
+MYSQL_PASSWORD=$db_password
+MYSQL_ROOT_PASSWORD=$root_password
+MYSQL_VOLUME=$(realpath "$dir_path/mysql")
 
-    # WordPress Configuration
-    WORDPRESS_PORT=$port_number
-    WORDPRESS_DB_HOST=db-$converted_site_address:3306
-    WORDPRESS_DB_USER=$db_user
-    WORDPRESS_DB_PASSWORD=$db_password
-    WORDPRESS_DB_NAME=$db_name
-    WORDPRESS_VOLUME=$(realpath "$dir_path/data")
+# WordPress Configuration
+WORDPRESS_PORT=$port_number
+WORDPRESS_DB_HOST=db-$converted_site_address:3306
+WORDPRESS_DB_USER=$db_user
+WORDPRESS_DB_PASSWORD=$db_password
+WORDPRESS_DB_NAME=$db_name
+WORDPRESS_VOLUME=$(realpath "$dir_path/data")
 EOF
 }
 
@@ -93,56 +93,56 @@ function create_apache_conf {
     site_conf="/etc/httpd/conf.d/10-$converted_site_address.conf"
     # Generate the virtual host configuration file
     cat > "$site_conf" <<EOF
-    # -----------------------------------------------------------------------------
-    # Project: Web-Deployment - $site_address
-    # File: 10-$converted_site_address.conf
-    # -----------------------------------------------------------------------------
-    # Purpose:
-    # This file is used to configure the virtual host for the $site_address site.
-    #
-    # Copyright (C) 2024 CARS, The University of Chicago, USA
-    # Copyright (C) 2024 GSECARS, The University of Chicago, USA
-    # This project is distributed under the terms of the MIT license.
-    # -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Project: Web-Deployment - $site_address
+# File: 10-$converted_site_address.conf
+# -----------------------------------------------------------------------------
+# Purpose:
+# This file is used to configure the virtual host for the $site_address site.
+#
+# Copyright (C) 2024 CARS, The University of Chicago, USA
+# Copyright (C) 2024 GSECARS, The University of Chicago, USA
+# This project is distributed under the terms of the MIT license.
+# -----------------------------------------------------------------------------
 
-    <VirtualHost *:443>
-        ServerName $site_address:443
-        ServerAlias $site_address
+<VirtualHost *:443>
+    ServerName $site_address:443
+    ServerAlias $site_address
 
-        ProxyPass / http://127.0.0.1:$port_number/
-        ProxyPassReverse / http://127.0.0.1:$port_number/
+    ProxyPass / http://127.0.0.1:$port_number/
+    ProxyPassReverse / http://127.0.0.1:$port_number/
 
-        <Location />
-            ProxyPassReverse /
-            ProxyPassReverseCookiePath / /
-            Order allow,deny
-            Allow from all
-        </Location>
-        
-        ErrorLog logs/ssl_error_log
-        TransferLog logs/ssl_access_log
-        LogLevel warn
-        CustomLog logs/ssl_request_log "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+    <Location />
+        ProxyPassReverse /
+        ProxyPassReverseCookiePath / /
+        Order allow,deny
+        Allow from all
+    </Location>
 
-        SSLEngine on
-        SSLProtocol -all +TLSv1.2
-        SSLProxyProtocol -all +TLSv1.2
-        SSLHonorCipherOrder on
-    #    SSLCertificateFile /path/to/your/certificate.crt
-    #    SSLCertificateKeyFile /path/to/your/private.key
-    #    SSLCertificateChainFile /path/to/your/chainfile.pem
+    ErrorLog logs/ssl_error_log
+    TransferLog logs/ssl_access_log
+    LogLevel warn
+    CustomLog logs/ssl_request_log "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
 
-        BrowserMatch "MSIE [2-5]" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
-        Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    SSLEngine on
+    SSLProtocol -all +TLSv1.2
+    SSLProxyProtocol -all +TLSv1.2
+    SSLHonorCipherOrder on
+#    SSLCertificateFile /path/to/your/certificate.crt
+#    SSLCertificateKeyFile /path/to/your/private.key
+#    SSLCertificateChainFile /path/to/your/chainfile.pem
 
-        <FilesMatch "\.(cgi|shtml|phtml|php)$">
-        SSLOptions +StdEnvVars
+    BrowserMatch "MSIE [2-5]" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+    <FilesMatch "\.(cgi|shtml|phtml|php)$">
+    SSLOptions +StdEnvVars
         </FilesMatch>
-        <Directory "/var/www/cgi-bin">
-            SSLOptions +StdEnvVars
-        </Directory>
+    <Directory "/var/www/cgi-bin">
+        SSLOptions +StdEnvVars
+    </Directory>
 
-    </VirtualHost>
+</VirtualHost>
 EOF
 }
 
@@ -155,24 +155,24 @@ function create_deployment_report {
 
     # Create the report file
     cat > "$report_file" <<EOF
-    # -----------------------------------------------------------------------------
-    # Project: Web-Deployment - $site_address
-    # File: $site_address
-    # -----------------------------------------------------------------------------
-    # Purpose:
-    # This file is a general report for the deployment of the $site_address site.
-    #
-    # Copyright (C) 2024 CARS, The University of Chicago, USA
-    # Copyright (C) 2024 GSECARS, The University of Chicago, USA
-    # This project is distributed under the terms of the MIT license.
-    # -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Project: Web-Deployment - $site_address
+# File: $site_address
+# -----------------------------------------------------------------------------
+# Purpose:
+# This file is a general report for the deployment of the $site_address site.
+#
+# Copyright (C) 2024 CARS, The University of Chicago, USA
+# Copyright (C) 2024 GSECARS, The University of Chicago, USA
+# This project is distributed under the terms of the MIT license.
+# -----------------------------------------------------------------------------
 
-    Deployment Date: $timestamp
-    Deployment User: $(whoami)
-    Deployment Host: $(hostname)
-    Deployment Directory: $dir_path
-    Deployment Port: $port_number
-    HTTPD Configuration File: $site_conf
+Deployment Date: $timestamp
+Deployment User: $(whoami)
+Deployment Host: $(hostname)
+Deployment Directory: $dir_path
+Deployment Port: $port_number
+HTTPD Configuration File: $site_conf
 EOF
 }
 
@@ -182,25 +182,25 @@ function create_migration_report {
 
     # Create the report file
     cat > "$report_file" <<EOF
-    # -----------------------------------------------------------------------------
-    # Project: Web-Deployment - $site_address
-    # File: $site_address
-    # -----------------------------------------------------------------------------
-    # Purpose:
-    # This file is a general report for the migration of the $site_address site.
-    #
-    # Copyright (C) 2024 CARS, The University of Chicago, USA
-    # Copyright (C) 2024 GSECARS, The University of Chicago, USA
-    # This project is distributed under the terms of the MIT license.
-    # -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Project: Web-Deployment - $site_address
+# File: $site_address
+# -----------------------------------------------------------------------------
+# Purpose:
+# This file is a general report for the migration of the $site_address site.
+#
+# Copyright (C) 2024 CARS, The University of Chicago, USA
+# Copyright (C) 2024 GSECARS, The University of Chicago, USA
+# This project is distributed under the terms of the MIT license.
+# -----------------------------------------------------------------------------
 
-    Migration Date: $timestamp
-    Deployment User: $(whoami)
-    Deployment Host: $(hostname)
-    Deployment Directory: $dir_path
-    Deployment Port: $port_number
-    Migration Dump: $db_dump_sql
-    Migration WP-Content: $wp_content_tar_gz
-    HTTPD Configuration File: $site_conf
+Migration Date: $timestamp
+Deployment User: $(whoami)
+Deployment Host: $(hostname)
+Deployment Directory: $dir_path
+Deployment Port: $port_number
+Migration Dump: $db_dump_sql
+Migration WP-Content: $wp_content_tar_gz
+HTTPD Configuration File: $site_conf
 EOF
 }
